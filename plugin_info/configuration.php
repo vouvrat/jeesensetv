@@ -21,6 +21,22 @@ if (!isConnect()) {
   include_file('desktop', '404', 'php');
   die();
 }
+
+$coreVersion = '0.0.1';
+if(!file_exists(__FILE__) . 'info.json'){
+  log:add('jeesencetv', 'warning', 'Pas de fichier info.json');
+}
+$data = json_decode(file_get_contents(dirname(__FILE__). '/info.json'), true);
+if(!is_array($data)){
+  log::add('jeesensetv', 'warning', 'Impossible de décoder le fichoer info.json');
+}
+try {
+  $coreVersion = $data['pluginVersion'];
+} catch (\Exception $e) {
+  log::add('jeesensetv', 'warning', 'Pas de version du plugin');
+}
+
+
 ?>
 <form class="form-horizontal">
   <fieldset>
